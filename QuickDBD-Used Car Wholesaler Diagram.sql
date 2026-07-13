@@ -1,6 +1,5 @@
 ﻿-- Exported from QuickDBD: https://www.quickdatabasediagrams.com/
 -- Link to original schema: https://app.quickdatabasediagrams.com/#/d/Bldj0Q
--- NOTE! If you have used non-SQL datatypes in your design, you will have to change these here.
 
 
 SET XACT_ABORT ON;

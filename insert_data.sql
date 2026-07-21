@@ -6,7 +6,7 @@ SET XACT_ABORT ON;
 BEGIN TRY
     BEGIN TRANSACTION;
 
-    -- Vyčistenie existujúcich testovacích dát, aby sa skript dal bezpečne spustiť znova.
+    -- Cleaning existing test data to ensure the script can be safely executed again.
     UPDATE [Car_Purchase] SET [Reverse_Purchase_ID] = NULL WHERE [Reverse_Purchase_ID] IS NOT NULL;
     DELETE FROM [Parts];
     DELETE FROM [Service];
@@ -882,7 +882,7 @@ BEGIN TRY
     INSERT INTO [Reverse_Purchase] ([Reverse_Purchase_ID], [Date_of_Reverse], [Reason], [Car_Purchase_ID], [Invoice_ID]) VALUES (N'RP00000024', '2023-07-29', N'Major mechanical defect', N'CP00000182', N'INV0000182');
     INSERT INTO [Reverse_Purchase] ([Reverse_Purchase_ID], [Date_of_Reverse], [Reason], [Car_Purchase_ID], [Invoice_ID]) VALUES (N'RP00000025', '2024-12-09', N'Title discrepancy', N'CP00000111', N'INV0000111');
 
-    -- Obnovenie kruhovej väzby po vložení Reverse_Purchase
+    -- Restoring the circular relationship after inserting Reverse_Purchase
     UPDATE [Car_Purchase] SET [Reverse_Purchase_ID] = N'RP00000017' WHERE [Car_Purchase_ID] = N'CP00000002';
     UPDATE [Car_Purchase] SET [Reverse_Purchase_ID] = N'RP00000003' WHERE [Car_Purchase_ID] = N'CP00000020';
     UPDATE [Car_Purchase] SET [Reverse_Purchase_ID] = N'RP00000014' WHERE [Car_Purchase_ID] = N'CP00000028';
@@ -1061,7 +1061,7 @@ BEGIN TRY
     INSERT INTO [Sale] ([Bos_ID], [Car_VIN], [Auction_ID], [Sale_Amount], [Sale_Fees], [Employee_ID]) VALUES (N'BOS0000149', N'1XMDJE7G67M61L24Z', N'A0006', 32955.9, 1199.59, N'EMP000000006');
     INSERT INTO [Sale] ([Bos_ID], [Car_VIN], [Auction_ID], [Sale_Amount], [Sale_Fees], [Employee_ID]) VALUES (N'BOS0000150', N'HETKH08D66KCCVUFE', N'A0002', 7124.1, 403.21, N'EMP000000018');
 
-    -- Completed_Work (unikátne obdobie pre každého zamestnanca)
+    -- Completed_Work (Unique period for each employee)
     INSERT INTO [Completed_Work] ([Employee_ID], [Worked_Hours], [Month], [Year], [Role_ID], [Bonuses], [Days_Off], [Sick_Leave]) VALUES (N'EMP000000001', 175.3, 1, 2024, N'ROLE01', 1000, 0.2, 2);
     INSERT INTO [Completed_Work] ([Employee_ID], [Worked_Hours], [Month], [Year], [Role_ID], [Bonuses], [Days_Off], [Sick_Leave]) VALUES (N'EMP000000002', 127.55, 1, 2024, N'ROLE02', 250, 1.1, 1.7);
     INSERT INTO [Completed_Work] ([Employee_ID], [Worked_Hours], [Month], [Year], [Role_ID], [Bonuses], [Days_Off], [Sick_Leave]) VALUES (N'EMP000000003', 177.62, 1, 2024, N'ROLE03', 0, 0.7, 0.6);
